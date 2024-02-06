@@ -1,4 +1,5 @@
-from scr.constants import ONTOUML_VOCABULARY_TYPES, ONTOUML_BOOLEAN_DATA_PROPERTIES
+from scr.constants import ONTOUML_VOCABULARY_TYPES, ONTOUML_BOOLEAN_DATA_PROPERTIES, ONTOUML_CLASS_STEREOTYPES, \
+    ONTOUML_CLASS_NATURE, ONTOUML_RELATION_STEREOTYPES, ONTOUML_PROPERTY_STEREOTYPES, ONTOUML_AGGREGATION_KIND
 
 
 class Stats:
@@ -6,23 +7,47 @@ class Stats:
         # Mandatory for init
         self.model: str = model
 
-        for ontouml_type in ONTOUML_VOCABULARY_TYPES:
-            setattr(self, ontouml_type, 0)
+        # DATA
 
-        for ontouml_type, data_properties in ONTOUML_BOOLEAN_DATA_PROPERTIES.items():
+        for elem in ONTOUML_VOCABULARY_TYPES:
+            setattr(self, elem, 0)
+
+        for elem, data_properties in ONTOUML_BOOLEAN_DATA_PROPERTIES.items():
             for data_property in data_properties:
-                setattr(self, f"{ontouml_type}_{data_property}_True", 0)
-                setattr(self, f"{ontouml_type}_{data_property}_False", 0)
+                setattr(self, f"{elem}_{data_property}_True", 0)
+                setattr(self, f"{elem}_{data_property}_False", 0)
 
-    def calculate_derived(self):
-        pass
+        for elem in ONTOUML_CLASS_STEREOTYPES:
+            setattr(self, f"Class_St_{elem}", 0)
+        self.Class_St_others = 0
+        self.Class_St_none = 0
 
-    def validate(self):
-        pass
+        for elem in ONTOUML_RELATION_STEREOTYPES:
+            setattr(self, f"Relation_St_{elem}", 0)
+        self.Relation_St_others = 0
+
+        for elem in ONTOUML_PROPERTY_STEREOTYPES:
+            setattr(self, f"Property_St_{elem}", 0)
+        self.Property_St_others = 0
+
+        for elem in ONTOUML_CLASS_NATURE:
+            setattr(self, f"Class_ON_{elem}", 0)
+
+        for elem in ONTOUML_AGGREGATION_KIND:
+            setattr(self, f"Property_AK_{elem}", 0)
+        self.Property_AK_others = 0
+
+        for elem_st in ONTOUML_CLASS_STEREOTYPES:
+            for elem_on in ONTOUML_CLASS_NATURE:
+                setattr(self, f"Class_St-ON_{elem_st}_{elem_on}", 0)
+
+        for st_g in ONTOUML_CLASS_STEREOTYPES:
+            for st_s in ONTOUML_CLASS_STEREOTYPES:
+                setattr(self, f"Generalization_{st_s}_{st_g}",0)
+
 
     def __repr__(self):
         return f'Stats(model={self.__dict__})'
-
 
 #         # Metadata asserted attributes
 #         self.keywords: str = ""
@@ -67,136 +92,3 @@ class Stats:
 #         self.num_ontology_types: int = 0
 #         self.num_repr_styles: int = 0
 #
-#         # DATA ASSERTED
-#
-#         # All Vocabulary Classes
-#
-#         self.aggregationkind:int = 0
-#         self.cardinality:int = 0
-#         self.ou_class:int = 0
-#         self.classifier:int = 0
-#         self.classstereotype:int = 0
-#         self.classview:int = 0
-#         self.connectorview:int = 0
-#         self.decoratableelement:int = 0
-#         self.diagram:int = 0
-#         self.diagramelement:int = 0
-#         self.elementview:int = 0
-#         self.generalization:int = 0
-#         self.generalizationset:int = 0
-#         self.generalizationsetview:int = 0
-#         self.generalizationview:int = 0
-#         self.literal:int = 0
-#         self.modelelement:int = 0
-#         self.nodeview:int = 0
-#         self.note:int = 0
-#         self.noteview:int = 0
-#         self.ontologicalnature:int = 0
-#         self.ontoumlelement:int = 0
-#         self.package:int = 0
-#         self.packageview:int = 0
-#         self.path:int = 0
-#         self.point:int = 0
-#         self.project:int = 0
-#         self.property:int = 0
-#         self.propertystereotype:int = 0
-#         self.rectangle:int = 0
-#         self.rectangularshape:int = 0
-#         self.relation:int = 0
-#         self.relationstereotype:int = 0
-#         self.relationview:int = 0
-#         self.shape:int = 0
-#         self.stereotype:int = 0
-#         self.text:int = 0
-#
-#
-#         # Classes' Stereotypes
-#
-#         self.cs_abstract: int = 0
-#         self.cs_category: int = 0
-#         self.cs_collective: int = 0
-#         self.cs_datatype: int = 0
-#         self.cs_enumeration: int = 0
-#         self.cs_event: int = 0
-#         self.cs_historicalrole: int = 0
-#         self.cs_historicalrolemixin: int = 0
-#         self.cs_kind: int = 0
-#         self.cs_mixin: int = 0
-#         self.cs_mode: int = 0
-#         self.cs_phase: int = 0
-#         self.cs_phasemixin: int = 0
-#         self.cs_quality: int = 0
-#         self.cs_quantity: int = 0
-#         self.cs_relator: int = 0
-#         self.cs_role: int = 0
-#         self.cs_rolemixin: int = 0
-#         self.cs_situation: int = 0
-#         self.cs_subkind: int = 0
-#         self.cs_type: int = 0
-#
-#         self.cs_other: int = 0
-#         self.cs_other_list: str = ""
-#         self.cs_none: int = 0
-#
-#         # Relations' Stereotypes
-#
-#         self.rs_bringsabout:int = 0
-#         self.rs_characterization:int = 0
-#         self.rs_comparative:int = 0
-#         self.rs_componentof:int = 0
-#         self.rs_creation:int = 0
-#         self.rs_derivation:int = 0
-#         self.rs_externaldependence:int = 0
-#         self.rs_historicaldependence:int = 0
-#         self.rs_instantiation:int = 0
-#         self.rs_manifestation:int = 0
-#         self.rs_material:int = 0
-#         self.rs_mediation:int = 0
-#         self.rs_memberof:int = 0
-#         self.rs_participation:int = 0
-#         self.rs_participational:int = 0
-#         self.rs_subcollectionof:int = 0
-#         self.rs_subquantityof:int = 0
-#         self.rs_termination:int = 0
-#         self.rs_triggers:int = 0
-#
-#         self.rs_other:int = 0
-#         self.rs_other_list: str = ""
-#         self.rs_none:int = 0
-#
-#
-#         # Ontological Natures
-#
-#         self.on_abstractnature: int = 0
-#         self.on_collectivenature: int = 0
-#         self.on_eventnature: int = 0
-#         self.on_extrinsicmodenature: int = 0
-#         self.on_functionalcomplexnature: int = 0
-#         self.on_intrinsicmodenature: int = 0
-#         self.on_qualitynature: int = 0
-#         self.on_quantitynature: int = 0
-#         self.on_relatornature: int = 0
-#         self.on_situationnature: int = 0
-#         self.on_typenature: int = 0
-#
-#         self.on_other: int = 0
-#         self.on_other_list: str = ""
-#         self.on_none: int = 0
-#
-#         # Aggregation Kinds
-#
-#         self.ak_composite: int = 0
-#         self.ak_none: int = 0
-#         self.ak_shared: int = 0
-#
-#         self.ak_other: int = 0
-#         self.ak_other_list: str = ""
-#
-#         # Property Stereotype
-#
-#         self.ps_begin: int = 0
-#         self.ps_end: int = 0
-#
-#         self.ps_other: int = 0
-#         self.ps_other_list: str = ""
-#         self.ps_none: int = 0

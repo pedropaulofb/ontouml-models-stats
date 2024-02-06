@@ -1,6 +1,7 @@
 import csv
 import os
 
+from icecream import ic
 from loguru import logger
 
 from scr.gather_data import get_data
@@ -14,6 +15,10 @@ def get_metadata(metadata_file):
 
 def get_statistics(models, models_stats_list):
     project_root_dir = get_project_root_dir()
+
+    limit = 5
+    value = 0
+
     for model in models:
         model_stats = Stats(model=model)
 
@@ -24,6 +29,10 @@ def get_statistics(models, models_stats_list):
         get_metadata(metadata_file)
 
         models_stats_list.append(model_stats)
+
+        # value += 1
+        # if value == limit:
+        #     break
 
 
 
@@ -42,8 +51,5 @@ if __name__ == "__main__":
     models = get_models_names(original_models_path)
     models_stats: list[Stats] = []
     get_statistics(models, models_stats)
-    for stat in models_stats:
-        stat.calculate_derived()
-        stat.validate()
     create_output_csv(models_stats)
     logger.success("Execution completed!")

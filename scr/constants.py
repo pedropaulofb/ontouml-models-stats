@@ -10,3 +10,20 @@ ONTOUML_BOOLEAN_DATA_PROPERTIES = {"Class": ["isExtensional", "isPowertype", "is
                                    "Relation": ["isAbstract", "isDerived"],
                                    "GeneralizationSet": ["isComplete", "isDisjoint"],
                                    "Property": ["isOrdered", "isReadOnly", "isDerived"]}
+
+ONTOUML_CLASS_STEREOTYPES = ["abstract", "category", "collective", "datatype", "enumeration", "event", "historicalRole",
+                             "historicalRoleMixin", "kind", "mixin", "mode", "phase", "phaseMixin", "quality",
+                             "quantity", "relator", "role", "roleMixin", "situation", "subkind", "type"]
+
+ONTOUML_CLASS_NATURE = ["abstractNature", "collectiveNature", "eventNature", "extrinsicModeNature",
+                        "functionalComplexNature", "intrinsicModeNature", "qualityNature", "quantityNature",
+                        "relatorNature", "situationNature", "typeNature"]
+
+ONTOUML_RELATION_STEREOTYPES = ["bringsAbout", "characterization", "comparative", "componentOf", "creation",
+                                "derivation", "externalDependence", "historicalDependence", "instantiation",
+                                "manifestation", "material", "mediation", "memberOf", "participation",
+                                "participational", "subCollectionOf", "subQuantityOf", "termination", "triggers"]
+
+ONTOUML_PROPERTY_STEREOTYPES = ["begin", "end"]
+
+ONTOUML_AGGREGATION_KIND = ["composite", "none", "shared"]
