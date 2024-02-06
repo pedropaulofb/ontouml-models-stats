@@ -1,4 +1,4 @@
-from scr.constants import ONTOUML_VOCABULARY_TYPES
+from scr.constants import ONTOUML_VOCABULARY_TYPES, ONTOUML_BOOLEAN_DATA_PROPERTIES
 
 
 class Stats:
@@ -8,6 +8,11 @@ class Stats:
 
         for ontouml_type in ONTOUML_VOCABULARY_TYPES:
             setattr(self, ontouml_type, 0)
+
+        for ontouml_type, data_properties in ONTOUML_BOOLEAN_DATA_PROPERTIES.items():
+            for data_property in data_properties:
+                setattr(self, f"{ontouml_type}_{data_property}_True", 0)
+                setattr(self, f"{ontouml_type}_{data_property}_False", 0)
 
     def calculate_derived(self):
         pass
