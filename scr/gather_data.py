@@ -253,7 +253,6 @@ def register_all_generalization_stereotypes(data_graph, model_stats):
 
 
 def get_data(model, model_stats, data_file):
-    logger.
     logger.info(f"Collecting data from model {model}.")
 
     data_graph = load_graph_safely(data_file)
