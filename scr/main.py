@@ -1,7 +1,7 @@
 import csv
 import os
+import time
 
-from icecream import ic
 from loguru import logger
 
 from scr.gather_data import get_data
@@ -16,13 +16,15 @@ def get_metadata(metadata_file):
 def get_statistics(models, models_stats_list):
     project_root_dir = get_project_root_dir()
 
-    limit = 5
+    limit = 92
     value = 0
+    start_time_total = time.perf_counter()
 
     for model in models:
         model_stats = Stats(model=model)
 
         data_file = os.path.join(project_root_dir, 'models', model, "ontology.ttl")
+
         get_data(model, model_stats, data_file)
 
         metadata_file = os.path.join(project_root_dir, 'models', model, "metadata.ttl")
@@ -30,9 +32,13 @@ def get_statistics(models, models_stats_list):
 
         models_stats_list.append(model_stats)
 
-        # value += 1
-        # if value == limit:
-        #     break
+        value += 1
+        if value == limit:
+            break
+
+    end_time_total = time.perf_counter()
+    logger.info(
+        f"TOTAL TIME = {format((end_time_total - start_time_total) * 1000, ".2f")} miliseconds.")
 
 
 

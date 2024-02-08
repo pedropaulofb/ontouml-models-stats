@@ -92,3 +92,46 @@ def load_graph_safely(ontology_file: str, out_format: str = "not_provided") -> G
         raise OSError(error)
 
     return ontology_graph
+
+
+def update_counter(counter_dict, key):
+    """Update the count for a given key in a dictionary.
+
+    Parameters:
+    - counter_dict: Dict, the dictionary to update.
+    - key: The key for which to update the count.
+
+    Returns:
+    None; the input dictionary is modified in place.
+    """
+    if key in counter_dict:
+        # If the key exists, increment its value
+        counter_dict[key] += 1
+    else:
+        # If the key does not exist, create it with an initial value of 1
+        counter_dict[key] = 1
+
+def update_pair_counter(pair_counter, key1, key2):
+    """
+    Update the count for a given pair of keys in a nested dictionary.
+
+    Parameters:
+    - pair_counter: Dict, the nested dictionary to update.
+    - key1: The first key of the pair.
+    - key2: The second key of the pair.
+
+    Returns:
+    None; the input nested dictionary is modified in place.
+    """
+    if key1 not in pair_counter:
+        # If the first key does not exist, create it with a nested dictionary
+        pair_counter[key1] = {key2: 1}
+    else:
+        # If the first key exists, check for the second key
+        if key2 in pair_counter[key1]:
+            # If the second key exists, increment its value
+            pair_counter[key1][key2] += 1
+        else:
+            # If the second key does not exist, create it with an initial value of 1
+            pair_counter[key1][key2] = 1
+
